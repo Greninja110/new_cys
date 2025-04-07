@@ -1,0 +1,30 @@
+2025-04-07 20:39:48,560 [INFO] - nids - Logger initialized: nids
+2025-04-07 20:39:48,560 [INFO] - nids - Logger initialized: nids
+2025-04-07 20:39:48,648 [INFO] - feature_engineering - Logger initialized: feature_engineering
+2025-04-07 20:39:48,719 [INFO] - xgboost_model - Logger initialized: xgboost_model
+2025-04-07 20:39:50,640 [INFO] - deep_model - Logger initialized: deep_model
+2025-04-07 20:39:50,641 [INFO] - ensemble - Logger initialized: ensemble
+2025-04-07 20:39:50,642 [INFO] - train - Logger initialized: train
+2025-04-07 20:39:50,643 [INFO] - train - Starting training process for model type: ensemble
+2025-04-07 20:39:50,643 [INFO] - train - Loading data from D:\cys\nids\data\processed\combined_dataset.csv
+2025-04-07 20:39:50,652 [ERROR] - train - Error during training: [Errno 2] No such file or directory: 'D:\\cys\\nids\\data\\processed\\combined_dataset.csv'
+Traceback (most recent call last):
+  File "D:\cys\nids\train.py", line 60, in train_models
+    df = pd.read_csv(data_file)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\cys\\nids\\data\\processed\\combined_dataset.csv'

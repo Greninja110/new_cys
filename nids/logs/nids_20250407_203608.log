@@ -1,0 +1,91 @@
+2025-04-07 20:36:08,028 [INFO] - nids - Logger initialized: nids
+2025-04-07 20:36:08,028 [INFO] - nids - Logger initialized: nids
+2025-04-07 20:36:08,029 [INFO] - parquet_to_csv - Logger initialized: parquet_to_csv
+2025-04-07 20:36:08,029 [INFO] - parquet_to_csv - Converting all parquet files in D:\cys\nids\data\raw\CIC-DDoS2019
+2025-04-07 20:36:08,030 [INFO] - parquet_to_csv - Found 17 parquet files
+2025-04-07 20:36:08,036 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\DNS-testing.parquet to CSV
+2025-04-07 20:36:08,422 [INFO] - parquet_to_csv - DataFrame shape: (6703, 78)
+2025-04-07 20:36:08,425 [INFO] - parquet_to_csv - Memory usage: 1.62 MB
+2025-04-07 20:36:08,545 [INFO] - parquet_to_csv - Conversion completed in 0.51 seconds
+2025-04-07 20:36:08,548 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\DNS-testing.csv
+2025-04-07 20:36:08,548 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\LDAP-testing.parquet to CSV
+2025-04-07 20:36:08,561 [INFO] - parquet_to_csv - DataFrame shape: (2831, 78)
+2025-04-07 20:36:08,563 [INFO] - parquet_to_csv - Memory usage: 0.68 MB
+2025-04-07 20:36:08,613 [INFO] - parquet_to_csv - Conversion completed in 0.06 seconds
+2025-04-07 20:36:08,614 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\LDAP-testing.csv
+2025-04-07 20:36:08,614 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\LDAP-training.parquet to CSV
+2025-04-07 20:36:08,634 [INFO] - parquet_to_csv - DataFrame shape: (6715, 78)
+2025-04-07 20:36:08,635 [INFO] - parquet_to_csv - Memory usage: 1.68 MB
+2025-04-07 20:36:08,757 [INFO] - parquet_to_csv - Conversion completed in 0.14 seconds
+2025-04-07 20:36:08,757 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\LDAP-training.csv
+2025-04-07 20:36:08,758 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\MSSQL-testing.parquet to CSV
+2025-04-07 20:36:08,774 [INFO] - parquet_to_csv - DataFrame shape: (8083, 78)
+2025-04-07 20:36:08,776 [INFO] - parquet_to_csv - Memory usage: 1.92 MB
+2025-04-07 20:36:08,922 [INFO] - parquet_to_csv - Conversion completed in 0.16 seconds
+2025-04-07 20:36:08,922 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\MSSQL-testing.csv
+2025-04-07 20:36:08,923 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\MSSQL-training.parquet to CSV
+2025-04-07 20:36:08,943 [INFO] - parquet_to_csv - DataFrame shape: (10974, 78)
+2025-04-07 20:36:08,944 [INFO] - parquet_to_csv - Memory usage: 2.70 MB
+2025-04-07 20:36:09,128 [INFO] - parquet_to_csv - Conversion completed in 0.21 seconds
+2025-04-07 20:36:09,129 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\MSSQL-training.csv
+2025-04-07 20:36:09,129 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\NetBIOS-testing.parquet to CSV
+2025-04-07 20:36:09,151 [INFO] - parquet_to_csv - DataFrame shape: (2225, 78)
+2025-04-07 20:36:09,153 [INFO] - parquet_to_csv - Memory usage: 0.54 MB
+2025-04-07 20:36:09,197 [INFO] - parquet_to_csv - Conversion completed in 0.07 seconds
+2025-04-07 20:36:09,197 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\NetBIOS-testing.csv
+2025-04-07 20:36:09,197 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\NetBIOS-training.parquet to CSV
+2025-04-07 20:36:09,216 [INFO] - parquet_to_csv - DataFrame shape: (1631, 78)
+2025-04-07 20:36:09,218 [INFO] - parquet_to_csv - Memory usage: 0.39 MB
+2025-04-07 20:36:09,257 [INFO] - parquet_to_csv - Conversion completed in 0.06 seconds
+2025-04-07 20:36:09,257 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\NetBIOS-training.csv
+2025-04-07 20:36:09,257 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\NTP-testing.parquet to CSV
+2025-04-07 20:36:09,286 [INFO] - parquet_to_csv - DataFrame shape: (134674, 78)
+2025-04-07 20:36:09,287 [INFO] - parquet_to_csv - Memory usage: 32.62 MB
+2025-04-07 20:36:11,817 [INFO] - parquet_to_csv - Conversion completed in 2.56 seconds
+2025-04-07 20:36:11,817 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\NTP-testing.csv
+2025-04-07 20:36:11,817 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\Portmap-training.parquet to CSV
+2025-04-07 20:36:11,839 [INFO] - parquet_to_csv - DataFrame shape: (5105, 78)
+2025-04-07 20:36:11,841 [INFO] - parquet_to_csv - Memory usage: 1.22 MB
+2025-04-07 20:36:11,945 [INFO] - parquet_to_csv - Conversion completed in 0.13 seconds
+2025-04-07 20:36:11,945 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\Portmap-training.csv
+2025-04-07 20:36:11,945 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\SNMP-testing.parquet to CSV
+2025-04-07 20:36:11,966 [INFO] - parquet_to_csv - DataFrame shape: (4018, 78)
+2025-04-07 20:36:11,967 [INFO] - parquet_to_csv - Memory usage: 0.97 MB
+2025-04-07 20:36:12,043 [INFO] - parquet_to_csv - Conversion completed in 0.10 seconds
+2025-04-07 20:36:12,043 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\SNMP-testing.csv
+2025-04-07 20:36:12,043 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\Syn-testing.parquet to CSV
+2025-04-07 20:36:12,062 [INFO] - parquet_to_csv - DataFrame shape: (907, 78)
+2025-04-07 20:36:12,063 [INFO] - parquet_to_csv - Memory usage: 0.21 MB
+2025-04-07 20:36:12,081 [INFO] - parquet_to_csv - Conversion completed in 0.04 seconds
+2025-04-07 20:36:12,081 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\Syn-testing.csv
+2025-04-07 20:36:12,082 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\Syn-training.parquet to CSV
+2025-04-07 20:36:12,106 [INFO] - parquet_to_csv - DataFrame shape: (70336, 78)
+2025-04-07 20:36:12,108 [INFO] - parquet_to_csv - Memory usage: 16.57 MB
+2025-04-07 20:36:13,417 [INFO] - parquet_to_csv - Conversion completed in 1.34 seconds
+2025-04-07 20:36:13,418 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\Syn-training.csv
+2025-04-07 20:36:13,419 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\TFTP-testing.parquet to CSV
+2025-04-07 20:36:13,452 [INFO] - parquet_to_csv - DataFrame shape: (121833, 78)
+2025-04-07 20:36:13,454 [INFO] - parquet_to_csv - Memory usage: 29.40 MB
+2025-04-07 20:36:15,601 [INFO] - parquet_to_csv - Conversion completed in 2.18 seconds
+2025-04-07 20:36:15,601 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\TFTP-testing.csv
+2025-04-07 20:36:15,602 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\UDP-testing.parquet to CSV
+2025-04-07 20:36:15,631 [INFO] - parquet_to_csv - DataFrame shape: (12462, 78)
+2025-04-07 20:36:15,632 [INFO] - parquet_to_csv - Memory usage: 3.01 MB
+2025-04-07 20:36:15,855 [INFO] - parquet_to_csv - Conversion completed in 0.25 seconds
+2025-04-07 20:36:15,855 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\UDP-testing.csv
+2025-04-07 20:36:15,856 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\UDP-training.parquet to CSV
+2025-04-07 20:36:15,889 [INFO] - parquet_to_csv - DataFrame shape: (17770, 78)
+2025-04-07 20:36:15,890 [INFO] - parquet_to_csv - Memory usage: 4.30 MB
+2025-04-07 20:36:16,206 [INFO] - parquet_to_csv - Conversion completed in 0.35 seconds
+2025-04-07 20:36:16,206 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\UDP-training.csv
+2025-04-07 20:36:16,206 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\UDPLag-testing.parquet to CSV
+2025-04-07 20:36:16,240 [INFO] - parquet_to_csv - DataFrame shape: (12465, 78)
+2025-04-07 20:36:16,242 [INFO] - parquet_to_csv - Memory usage: 2.98 MB
+2025-04-07 20:36:16,471 [INFO] - parquet_to_csv - Conversion completed in 0.26 seconds
+2025-04-07 20:36:16,471 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\UDPLag-testing.csv
+2025-04-07 20:36:16,471 [INFO] - parquet_to_csv - Converting D:\cys\nids\data\raw\CIC-DDoS2019\UDPLag-training.parquet to CSV
+2025-04-07 20:36:16,505 [INFO] - parquet_to_csv - DataFrame shape: (12639, 78)
+2025-04-07 20:36:16,507 [INFO] - parquet_to_csv - Memory usage: 3.04 MB
+2025-04-07 20:36:16,742 [INFO] - parquet_to_csv - Conversion completed in 0.27 seconds
+2025-04-07 20:36:16,742 [INFO] - parquet_to_csv - CSV file saved to D:\cys\nids\data\processed\CIC-DDoS2019\UDPLag-training.csv
+2025-04-07 20:36:16,743 [INFO] - parquet_to_csv - Converted 17 out of 17 files
