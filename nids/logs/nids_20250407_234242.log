@@ -1,0 +1,91 @@
+2025-04-07 23:42:42,076 [INFO] - nids - Logger initialized: nids
+2025-04-07 23:42:42,076 [INFO] - nids - Logger initialized: nids
+2025-04-07 23:42:42,155 [INFO] - feature_engineering - Logger initialized: feature_engineering
+2025-04-07 23:42:42,235 [INFO] - xgboost_model - Logger initialized: xgboost_model
+2025-04-07 23:42:44,263 [INFO] - deep_model - Logger initialized: deep_model
+2025-04-07 23:42:44,264 [INFO] - ensemble - Logger initialized: ensemble
+2025-04-07 23:42:44,265 [INFO] - train - Logger initialized: train
+2025-04-07 23:42:44,266 [INFO] - train - Starting training process for model type: ensemble
+2025-04-07 23:42:44,267 [INFO] - train - Loading data from D:\cys\nids\data\processed\CIC-DDoS2019\DNS-testing.csv
+2025-04-07 23:42:44,308 [INFO] - train - Running in test mode with reduced dataset
+2025-04-07 23:42:44,313 [INFO] - train - Dataset shape: (669, 78)
+2025-04-07 23:42:44,313 [INFO] - train - Columns: ['Protocol', 'Flow Duration', 'Total Fwd Packets', 'Total Backward Packets', 'Fwd Packets Length Total', 'Bwd Packets Length Total', 'Fwd Packet Length Max', 'Fwd Packet Length Min', 'Fwd Packet Length Mean', 'Fwd Packet Length Std', 'Bwd Packet Length Max', 'Bwd Packet Length Min', 'Bwd Packet Length Mean', 'Bwd Packet Length Std', 'Flow Bytes/s', 'Flow Packets/s', 'Flow IAT Mean', 'Flow IAT Std', 'Flow IAT Max', 'Flow IAT Min', 'Fwd IAT Total', 'Fwd IAT Mean', 'Fwd IAT Std', 'Fwd IAT Max', 'Fwd IAT Min', 'Bwd IAT Total', 'Bwd IAT Mean', 'Bwd IAT Std', 'Bwd IAT Max', 'Bwd IAT Min', 'Fwd PSH Flags', 'Bwd PSH Flags', 'Fwd URG Flags', 'Bwd URG Flags', 'Fwd Header Length', 'Bwd Header Length', 'Fwd Packets/s', 'Bwd Packets/s', 'Packet Length Min', 'Packet Length Max', 'Packet Length Mean', 'Packet Length Std', 'Packet Length Variance', 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count', 'PSH Flag Count', 'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count', 'ECE Flag Count', 'Down/Up Ratio', 'Avg Packet Size', 'Avg Fwd Segment Size', 'Avg Bwd Segment Size', 'Fwd Avg Bytes/Bulk', 'Fwd Avg Packets/Bulk', 'Fwd Avg Bulk Rate', 'Bwd Avg Bytes/Bulk', 'Bwd Avg Packets/Bulk', 'Bwd Avg Bulk Rate', 'Subflow Fwd Packets', 'Subflow Fwd Bytes', 'Subflow Bwd Packets', 'Subflow Bwd Bytes', 'Init Fwd Win Bytes', 'Init Bwd Win Bytes', 'Fwd Act Data Packets', 'Fwd Seg Size Min', 'Active Mean', 'Active Std', 'Active Max', 'Active Min', 'Idle Mean', 'Idle Std', 'Idle Max', 'Idle Min', 'Label']
+2025-04-07 23:42:44,315 [INFO] - train - Label distribution:
+Label
+DrDoS_DNS    366
+Benign       303
+Name: count, dtype: int64
+2025-04-07 23:42:44,316 [INFO] - train - Categorical columns: ['Label']
+2025-04-07 23:42:44,316 [INFO] - train - Columns to drop: []
+2025-04-07 23:42:44,316 [INFO] - feature_engineering - Preprocessing data
+2025-04-07 23:42:44,317 [INFO] - feature_engineering - Handling missing values
+2025-04-07 23:42:44,329 [INFO] - feature_engineering - Final feature count: 77
+2025-04-07 23:42:44,332 [INFO] - feature_engineering - Scaling features
+2025-04-07 23:42:44,336 [INFO] - feature_engineering - Class distribution in training set: {'DrDoS_DNS': 220, 'Benign': 181}
+2025-04-07 23:42:44,337 [INFO] - train - Scaler saved to d:\cys\nids\models\saved\ensemble_20250407_234244\scaler.joblib
+2025-04-07 23:42:44,338 [INFO] - train - Balancing training data classes
+2025-04-07 23:42:44,338 [INFO] - feature_engineering - Balancing classes using oversample
+2025-04-07 23:42:44,338 [INFO] - feature_engineering - Original class distribution: {'Benign': np.int64(181), 'DrDoS_DNS': np.int64(220)}
+2025-04-07 23:42:44,339 [INFO] - feature_engineering - Balanced class distribution: {'Benign': np.int64(220), 'DrDoS_DNS': np.int64(220)}
+2025-04-07 23:42:44,340 [INFO] - train - Class names: ['Benign', 'DrDoS_DNS']
+2025-04-07 23:42:44,340 [INFO] - deep_model - No GPUs found, using CPU
+2025-04-07 23:42:44,340 [INFO] - ensemble - Training ensemble model
+2025-04-07 23:42:44,340 [INFO] - ensemble - Training XGBoost component
+2025-04-07 23:42:44,340 [INFO] - xgboost_model - Training XGBoost model
+2025-04-07 23:42:44,340 [INFO] - xgboost_model - Converting string labels to numeric values
+2025-04-07 23:42:44,341 [INFO] - xgboost_model - Label mapping: {'Benign': 0, 'DrDoS_DNS': 1}
+2025-04-07 23:42:44,433 [INFO] - xgboost_model - Training XGBoost with parameters: {'max_depth': 8, 'learning_rate': 0.1, 'n_estimators': 50, 'objective': 'multi:softprob', 'subsample': 0.8, 'colsample_bytree': 0.8, 'tree_method': 'gpu_hist', 'predictor': 'gpu_predictor', 'random_state': 42, 'num_class': 2}
+2025-04-07 23:42:44,724 [INFO] - xgboost_model - XGBoost training completed with 49 iterations
+2025-04-07 23:42:44,725 [INFO] - ensemble - Training Deep Learning component
+2025-04-07 23:42:44,725 [INFO] - deep_model - Training deep learning model
+2025-04-07 23:42:44,725 [INFO] - deep_model - Class mapping: {'Benign': 0, 'DrDoS_DNS': 1}
+2025-04-07 23:42:44,726 [INFO] - deep_model - Creating model with input_dim=77, num_classes=2
+2025-04-07 23:42:51,834 [INFO] - deep_model - Training completed in 7.11 seconds
+2025-04-07 23:42:51,834 [INFO] - ensemble - Ensemble training completed in 7.49 seconds
+2025-04-07 23:42:51,834 [INFO] - ensemble - Evaluating ensemble model
+2025-04-07 23:42:51,835 [INFO] - ensemble - Evaluating XGBoost model
+2025-04-07 23:42:51,835 [INFO] - xgboost_model - Evaluating XGBoost model
+2025-04-07 23:42:51,855 [INFO] - xgboost_model - Accuracy: 0.9925
+2025-04-07 23:42:51,856 [INFO] - xgboost_model - Classification Report:
+2025-04-07 23:42:51,861 [INFO] - xgboost_model -               precision    recall  f1-score   support
+
+      Benign       1.00      0.98      0.99        61
+   DrDoS_DNS       0.99      1.00      0.99        73
+
+    accuracy                           0.99       134
+   macro avg       0.99      0.99      0.99       134
+weighted avg       0.99      0.99      0.99       134
+
+2025-04-07 23:42:52,359 [INFO] - xgboost_model - Feature importance plot saved to d:\cys\nids\models\saved\ensemble_20250407_234244\evaluation\xgboost\feature_importance.png
+2025-04-07 23:42:52,359 [INFO] - ensemble - Evaluating Deep Learning model
+2025-04-07 23:42:52,359 [INFO] - deep_model - Evaluating deep learning model
+2025-04-07 23:42:52,771 [INFO] - deep_model - Accuracy: 0.4776
+2025-04-07 23:42:52,771 [INFO] - deep_model - Classification Report:
+2025-04-07 23:42:52,775 [INFO] - deep_model -               precision    recall  f1-score   support
+
+      Benign       0.47      1.00      0.64        61
+   DrDoS_DNS       1.00      0.04      0.08        73
+
+    accuracy                           0.48       134
+   macro avg       0.73      0.52      0.36       134
+weighted avg       0.76      0.48      0.33       134
+
+2025-04-07 23:42:53,276 [INFO] - deep_model - Training history plot saved to d:\cys\nids\models\saved\ensemble_20250407_234244\evaluation\deep\training_history.png
+2025-04-07 23:42:53,426 [INFO] - ensemble - Ensemble Accuracy: 0.9925
+2025-04-07 23:42:53,426 [INFO] - ensemble - Ensemble Classification Report:
+2025-04-07 23:42:53,429 [INFO] - ensemble -               precision    recall  f1-score   support
+
+      Benign       1.00      0.98      0.99        61
+   DrDoS_DNS       0.99      1.00      0.99        73
+
+    accuracy                           0.99       134
+   macro avg       0.99      0.99      0.99       134
+weighted avg       0.99      0.99      0.99       134
+
+2025-04-07 23:42:53,786 [INFO] - ensemble - Model comparison plot saved to d:\cys\nids\models\saved\ensemble_20250407_234244\evaluation\model_comparison.png
+2025-04-07 23:42:53,792 [INFO] - xgboost_model - Model saved to d:\cys\nids\models\saved\ensemble_20250407_234244\ensemble_model\xgboost_model.json
+2025-04-07 23:42:53,822 [INFO] - deep_model - Model saved to d:\cys\nids\models\saved\ensemble_20250407_234244\ensemble_model\deep_model.h5
+2025-04-07 23:42:53,823 [INFO] - ensemble - Ensemble model saved to d:\cys\nids\models\saved\ensemble_20250407_234244\ensemble_model
+2025-04-07 23:42:53,823 [INFO] - train - Model saved to d:\cys\nids\models\saved\ensemble_20250407_234244\ensemble_model
+2025-04-07 23:42:53,823 [INFO] - train - Training completed in 9.56 seconds
+2025-04-07 23:42:53,935 [INFO] - train - Overall Accuracy: 0.9925

@@ -70,5 +70,5 @@ PCAP_FEATURES = [
 
 # Flask configuration
 FLASK_SECRET_KEY = 'your-secret-key-here'
-MAX_CONTENT_LENGTH = 50 * 1024 * 1024  # 50MB max upload size
+MAX_CONTENT_LENGTH = 500 * 1024 * 1024  # 50MB max upload size
 ALLOWED_EXTENSIONS = {'pcap', 'pcapng'}

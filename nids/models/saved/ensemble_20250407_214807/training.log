@@ -1,0 +1,72 @@
+2025-04-07 21:48:07,480 [INFO] - train - Loading data from D:\cys\nids\data\processed\CIC-DDoS2019\DNS-testing.csv
+2025-04-07 21:48:07,513 [INFO] - train - Running in test mode with reduced dataset
+2025-04-07 21:48:07,519 [INFO] - train - Dataset shape: (669, 78)
+2025-04-07 21:48:07,519 [INFO] - train - Columns: ['Protocol', 'Flow Duration', 'Total Fwd Packets', 'Total Backward Packets', 'Fwd Packets Length Total', 'Bwd Packets Length Total', 'Fwd Packet Length Max', 'Fwd Packet Length Min', 'Fwd Packet Length Mean', 'Fwd Packet Length Std', 'Bwd Packet Length Max', 'Bwd Packet Length Min', 'Bwd Packet Length Mean', 'Bwd Packet Length Std', 'Flow Bytes/s', 'Flow Packets/s', 'Flow IAT Mean', 'Flow IAT Std', 'Flow IAT Max', 'Flow IAT Min', 'Fwd IAT Total', 'Fwd IAT Mean', 'Fwd IAT Std', 'Fwd IAT Max', 'Fwd IAT Min', 'Bwd IAT Total', 'Bwd IAT Mean', 'Bwd IAT Std', 'Bwd IAT Max', 'Bwd IAT Min', 'Fwd PSH Flags', 'Bwd PSH Flags', 'Fwd URG Flags', 'Bwd URG Flags', 'Fwd Header Length', 'Bwd Header Length', 'Fwd Packets/s', 'Bwd Packets/s', 'Packet Length Min', 'Packet Length Max', 'Packet Length Mean', 'Packet Length Std', 'Packet Length Variance', 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count', 'PSH Flag Count', 'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count', 'ECE Flag Count', 'Down/Up Ratio', 'Avg Packet Size', 'Avg Fwd Segment Size', 'Avg Bwd Segment Size', 'Fwd Avg Bytes/Bulk', 'Fwd Avg Packets/Bulk', 'Fwd Avg Bulk Rate', 'Bwd Avg Bytes/Bulk', 'Bwd Avg Packets/Bulk', 'Bwd Avg Bulk Rate', 'Subflow Fwd Packets', 'Subflow Fwd Bytes', 'Subflow Bwd Packets', 'Subflow Bwd Bytes', 'Init Fwd Win Bytes', 'Init Bwd Win Bytes', 'Fwd Act Data Packets', 'Fwd Seg Size Min', 'Active Mean', 'Active Std', 'Active Max', 'Active Min', 'Idle Mean', 'Idle Std', 'Idle Max', 'Idle Min', 'Label']
+2025-04-07 21:48:07,520 [INFO] - train - Label distribution:
+Label
+DrDoS_DNS    366
+Benign       303
+Name: count, dtype: int64
+2025-04-07 21:48:07,522 [INFO] - train - Categorical columns: ['Label']
+2025-04-07 21:48:07,522 [INFO] - train - Columns to drop: []
+2025-04-07 21:48:07,543 [INFO] - train - Scaler saved to d:\cys\nids\models\saved\ensemble_20250407_214807\scaler.joblib
+2025-04-07 21:48:07,543 [INFO] - train - Balancing training data classes
+2025-04-07 21:48:07,544 [INFO] - train - Class names: ['Benign', 'DrDoS_DNS']
+2025-04-07 21:48:07,655 [ERROR] - train - Error during training: value 0 for Parameter num_class should be greater equal to 1
+num_class: Number of output class in the multi-class classification.
+Traceback (most recent call last):
+  File "C:\Users\abhijeet sahoo\AppData\Local\Programs\Python\Python312\Lib\argparse.py", line 1943, in _parse_known_args2
+    namespace, args = self._parse_known_args(args, namespace, intermixed)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\abhijeet sahoo\AppData\Local\Programs\Python\Python312\Lib\argparse.py", line 2230, in _parse_known_args
+    raise ArgumentError(None, _('the following arguments are required: %s') %
+argparse.ArgumentError: the following arguments are required: --data/-d
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\cys\nids\train.py", line 237, in <module>
+    args = parser.parse_args()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\abhijeet sahoo\AppData\Local\Programs\Python\Python312\Lib\argparse.py", line 1904, in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\abhijeet sahoo\AppData\Local\Programs\Python\Python312\Lib\argparse.py", line 1914, in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\abhijeet sahoo\AppData\Local\Programs\Python\Python312\Lib\argparse.py", line 1945, in _parse_known_args2
+    self.error(str(err))
+  File "C:\Users\abhijeet sahoo\AppData\Local\Programs\Python\Python312\Lib\argparse.py", line 2650, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "C:\Users\abhijeet sahoo\AppData\Local\Programs\Python\Python312\Lib\argparse.py", line 2637, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\cys\nids\train.py", line 173, in train_models
+    model.fit(X_train_balanced, y_train_balanced, X_val, y_val, feature_names, class_names)
+  File "d:\cys\nids\models\ensemble.py", line 72, in fit
+    self.xgb_model.fit(X_train, y_train, X_val, y_val, feature_names, class_names)
+  File "d:\cys\nids\models\xgboost_model.py", line 104, in fit
+    self.model = xgb.train(
+                 ^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\xgboost\training.py", line 178, in train
+    bst = cb_container.before_training(bst)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\xgboost\callback.py", line 185, in before_training
+    model = c.before_training(model=model)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\xgboost\callback.py", line 386, in before_training
+    self.starting_round = model.num_boosted_rounds()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\cys\nids\.venv\Lib\site-packages\xgboost\core.py", line 2913, in num_boosted_rounds
+    _check_call(_LIB.XGBoosterBoostedRounds(self.handle, ctypes.byref(rounds)))
+  File "D:\cys\nids\.venv\Lib\site-packages\xgboost\core.py", line 310, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: value 0 for Parameter num_class should be greater equal to 1
+num_class: Number of output class in the multi-class classification.

@@ -85,6 +85,33 @@ class XGBoostModel:
         
         # Prepare data
         dtrain = xgb.DMatrix(X_train, label=y_train_encoded, feature_names=feature_names)
+        # Create validation dataset if provided
+        if X_val is not None and y_val is not None:
+            if y_val_encoded is not None:
+                dval = xgb.DMatrix(X_val, label=y_val_encoded, feature_names=feature_names)
+                watchlist = [(dtrain, 'train'), (dval, 'validation')]
+            else:
+                watchlist = [(dtrain, 'train')]
+        else:
+            watchlist = [(dtrain, 'train')]
+
+        # Update num_class parameter if needed
+        if len(np.unique(y_train_encoded)) > 2:
+            self.params['num_class'] = len(np.unique(y_train_encoded))
+
+        # Train the model
+        logger.info(f"Training XGBoost with parameters: {self.params}")
+        self.model = xgb.train(
+            self.params,
+            dtrain,
+            num_boost_round=self.params.get('n_estimators', 100),
+            evals=watchlist,
+            early_stopping_rounds=self.params.get('early_stopping_rounds', 10),
+            verbose_eval=10
+        )
+
+        logger.info(f"XGBoost training completed with {self.model.best_iteration} iterations")
+        return self
     
     def predict(self, X, threshold=0.5):
         """
@@ -105,13 +132,14 @@ class XGBoostModel:
         dtest = xgb.DMatrix(X, feature_names=self.feature_names)
         
         # Make predictions
-        if self.params.get('num_class', 0) > 2:
-            # Multi-class prediction - return class with highest probability
-            probs = self.model.predict(dtest)
+        probs = self.model.predict(dtest)
+        
+        # Handle prediction format based on shape
+        if isinstance(probs, np.ndarray) and len(probs.shape) > 1:
+            # Multi-class format (including binary with num_class=2)
             predictions = np.argmax(probs, axis=1)
         else:
-            # Binary classification
-            probs = self.model.predict(dtest)
+            # Binary classification (single probability)
             predictions = (probs > threshold).astype(int)
         
         # Convert back to original labels if a label encoder was used
@@ -119,7 +147,7 @@ class XGBoostModel:
             return self.label_encoder.inverse_transform(predictions)
         else:
             return predictions
-    
+        
     def predict_proba(self, X):
         """
         Predict class probabilities.
@@ -137,13 +165,15 @@ class XGBoostModel:
         # Convert to DMatrix
         dtest = xgb.DMatrix(X, feature_names=self.feature_names)
         
-        # Make predictions
-        if self.params.get('num_class', 0) > 2:
-            # Multi-class prediction
-            return self.model.predict(dtest)
+        # Get raw predictions
+        probs = self.model.predict(dtest)
+        
+        # Format based on shape
+        if isinstance(probs, np.ndarray) and len(probs.shape) > 1:
+            # Already in multi-class format
+            return probs
         else:
             # Binary classification - return [1-p, p]
-            probs = self.model.predict(dtest)
             return np.vstack((1 - probs, probs)).T
     
     def evaluate(self, X_test, y_test, output_dir=None):

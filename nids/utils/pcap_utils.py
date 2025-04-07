@@ -246,12 +246,74 @@ def predict_from_pcap(pcap_file, model, scaler=None):
             logger.warning("No flows extracted from PCAP file")
             return pd.DataFrame()
         
-        # Keep only numeric columns for prediction
-        numeric_cols = df_flows.select_dtypes(include=['number']).columns
-        X = df_flows[numeric_cols].copy()
+        # Create a copy of the original dataframe
+        original_df = df_flows.copy()
+        
+        # Initial feature mapping (lowercase snake_case to CamelCase)
+        feature_map = {
+            'src_ip': 'Src IP',
+            'dst_ip': 'Dst IP',
+            'protocol': 'Protocol',
+            'src_port': 'Src Port',
+            'dst_port': 'Dst Port',
+            'flow_duration': 'Flow Duration',
+            'packet_count': 'Total Fwd Packets',  # Approximation
+            'packet_length_mean': 'Packet Length Mean',
+            'packet_length_std': 'Packet Length Std',
+            'packet_length_min': 'Packet Length Min',
+            'packet_length_max': 'Packet Length Max',
+            'ttl_mean': 'TTL Mean',
+            'tcp_flags_sum': 'SYN Flag Count',  # Approximation 
+            'tcp_window_size_mean': 'Init Fwd Win Bytes',  # Approximation
+            'payload_length_mean': 'Fwd Packets Length Total',  # Approximation
+            'payload_length_total': 'Bwd Packets Length Total',  # Approximation
+        }
+        
+        # Create a new DataFrame with the proper structure for the model
+        X = pd.DataFrame()
+        
+        # Get the expected feature names from the model
+        if hasattr(model, 'feature_names') and model.feature_names:
+            expected_features = model.feature_names
+        elif hasattr(model, 'xgb_model') and hasattr(model.xgb_model, 'feature_names'):
+            expected_features = model.xgb_model.feature_names
+        else:
+            logger.warning("Model doesn't have feature_names attribute. Using scaler feature names.")
+            expected_features = scaler.feature_names_in_
+        
+        logger.info(f"Expected features from model: {expected_features[:5]}...")
+        logger.info(f"Features from PCAP: {df_flows.columns[:5]}...")
+        
+        # Convert all extracted features to lowercase for easier mapping
+        extracted_cols = {col.lower().replace(' ', '_'): col for col in df_flows.columns}
+        
+        # Create a dummy dataframe with all expected features initialized to 0
+        X = pd.DataFrame(0, index=range(len(df_flows)), columns=expected_features)
+        
+        # Try to map PCAP features to expected features
+        for model_feat in expected_features:
+            # Try direct mapping (case insensitive)
+            pcap_feat = model_feat.lower().replace(' ', '_')
+            if pcap_feat in extracted_cols:
+                X[model_feat] = df_flows[extracted_cols[pcap_feat]]
+                logger.debug(f"Mapped {extracted_cols[pcap_feat]} to {model_feat}")
+            # Try through the feature map
+            else:
+                mapped = False
+                for pcap_key, model_key in feature_map.items():
+                    if model_key == model_feat and pcap_key in df_flows.columns:
+                        X[model_feat] = df_flows[pcap_key]
+                        mapped = True
+                        logger.debug(f"Mapped {pcap_key} to {model_feat} via map")
+                        break
+                
+                if not mapped:
+                    logger.debug(f"No mapping found for {model_feat}, using default value 0")
         
         # Handle missing values
         X.fillna(0, inplace=True)
+        
+        logger.info(f"Prepared feature matrix with shape: {X.shape}")
         
         # Apply scaling if provided
         if scaler is not None:
@@ -262,11 +324,11 @@ def predict_from_pcap(pcap_file, model, scaler=None):
         # Make predictions
         y_pred = model.predict(X_scaled)
         
-        # Add predictions to DataFrame
-        df_flows['prediction'] = y_pred
+        # Add predictions to the original DataFrame
+        original_df['prediction'] = y_pred
         
-        return df_flows
+        return original_df
     
     except Exception as e:
-        logger.error(f"Error making predictions from PCAP: {e}")
+        logger.error(f"Error making predictions from PCAP: {e}", exc_info=True)
         raise

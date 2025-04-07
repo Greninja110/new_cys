@@ -151,6 +151,11 @@ def train_models(data_file, label_column='Label', model_type='ensemble',
             if test_mode:
                 model.params['n_estimators'] = 50
             
+            # Fix for XGBoost num_class parameter
+            # Fix for XGBoost num_class parameter
+            if model.params['objective'] == 'multi:softprob':
+                model.params['num_class'] = len(class_names)
+            
             model.fit(X_train_balanced, y_train_balanced, X_val, y_val, feature_names, class_names)
             
         elif model_type == 'deep':
@@ -169,6 +174,11 @@ def train_models(data_file, label_column='Label', model_type='ensemble',
                 model.xgb_model.params['n_estimators'] = 50
                 model.deep_model.params['epochs'] = 10
                 model.deep_model.params['batch_size'] = 64
+            
+            # Fix for XGBoost num_class parameter
+            # Fix for XGBoost num_class parameter
+            if model.xgb_model.params['objective'] == 'multi:softprob':
+                model.xgb_model.params['num_class'] = len(class_names)
             
             model.fit(X_train_balanced, y_train_balanced, X_val, y_val, feature_names, class_names)
         
@@ -218,27 +228,70 @@ def train_models(data_file, label_column='Label', model_type='ensemble',
         return None, None
 
 if __name__ == '__main__':
-    # Parse command line arguments
-    parser = argparse.ArgumentParser(description='Train NIDS models')
-    parser.add_argument('--data', '-d', type=str, required=True,
-                        help='Path to dataset CSV file')
-    parser.add_argument('--label_column', '-l', type=str, default='Label',
-                        help='Name of the label column')
-    parser.add_argument('--model_type', '-m', type=str, default='ensemble',
-                        choices=['xgboost', 'deep', 'ensemble'],
-                        help='Type of model to train')
-    parser.add_argument('--output_dir', '-o', type=str, default=None,
-                        help='Directory to save trained models')
-    parser.add_argument('--test', '-t', action='store_true',
-                        help='Run in test mode with reduced dataset')
+    try:
+        # Parse command line arguments
+        parser = argparse.ArgumentParser(description='Train NIDS models')
+        parser.add_argument('--data', '-d', type=str, required=True,
+                           help='Path to dataset CSV file')
+        parser.add_argument('--label_column', '-l', type=str, default='Label',
+                           help='Name of the label column')
+        parser.add_argument('--model_type', '-m', type=str, default='ensemble',
+                           choices=['xgboost', 'deep', 'ensemble'],
+                           help='Type of model to train')
+        parser.add_argument('--output_dir', '-o', type=str, default=None,
+                           help='Directory to save trained models')
+        parser.add_argument('--test', '-t', action='store_true',
+                           help='Run in test mode with reduced dataset')
+        
+        # Parse arguments and train with them
+        args = parser.parse_args()
+        model, metrics = train_models(
+            args.data, 
+            args.label_column, 
+            args.model_type, 
+            args.output_dir,
+            args.test
+        )
     
-    args = parser.parse_args()
-    
-    # Train model
-    model, metrics = train_models(
-        args.data, 
-        args.label_column, 
-        args.model_type, 
-        args.output_dir,
-        args.test
-    )
+    except SystemExit:
+        # Use default values if command-line arguments are missing
+        print("=== Running with default parameters ===")
+        print("  - Looking for dataset...")
+        
+        # Try to find a dataset in the default locations
+        data_paths = [
+            "D:\\cys\\nids\\data\\processed\\CIC-DDoS2019\\DNS-testing.csv",
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "processed", "CIC-DDoS2019", "DNS-testing.csv"),
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "processed", "dataset.csv")
+        ]
+        
+        data_file = None
+        for path in data_paths:
+            if os.path.exists(path):
+                data_file = path
+                print(f"  - Found dataset: {data_file}")
+                break
+        
+        if data_file is None:
+            print("  - ERROR: No dataset found. Please provide a dataset using --data argument")
+            print("  - Example: python train.py --data D:\\cys\\nids\\data\\processed\\CIC-DDoS2019\\DNS-testing.csv")
+            sys.exit(1)
+            
+        # Set other default parameters
+        label_column = "Label"
+        model_type = "ensemble"
+        output_dir = None  # Will generate a timestamped directory
+        test_mode = False   # Use test mode by default for faster training
+        
+        print(f"  - Model type: {model_type}")
+        print(f"  - Test mode: {test_mode}")
+        print("=== Starting training ===")
+        
+        # Train the model with default parameters
+        model, metrics = train_models(
+            data_file,
+            label_column,
+            model_type,
+            output_dir,
+            test_mode
+        )
